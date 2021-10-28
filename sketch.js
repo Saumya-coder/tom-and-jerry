@@ -16,16 +16,10 @@ function setup(){
     createCanvas(1000,800);
     cat= createSprite(860,600);
     cat.addAnimation("catHappy",cat1Img);
-    cat.addAnimation("catRunning",cat2Img)
-    cat.addAnimation("catCollide", cat3Img)
     cat.scale = 0.15
     mouse = createSprite(100,600);
     mouse.addAnimation("mouseHappy",mouse1Img);
-    mouse.addAnimation("mouseTeasing",mouse2Img);
-    mouse.addAnimation("mouseCollide",mouse3Img)
-    mouse.scale = 0.15 
-    //cat.changeAnimation("catHappy",cat3Img);
-    //mouse.changeAnimation("mouseHappy",mouse3Img); 
+    mouse.scale = 0.15
 }
 
 function draw() {
@@ -33,33 +27,29 @@ function draw() {
     background(bgImg);
     if(cat.x - mouse.x < (cat.width - mouse.width)/2){
       
-      cat.changeAnimation("catCollide",cat3Img);
+      cat.addAnimation("catCollide",cat3Img);
       cat.velocityX = 0;
+      cat.x =300;
+      cat.scale=0.2;
+      cat.changeAnimation("catCollide",cat3Img);
      
-      mouse.changeAnimation("mouseCollide",mouse3Img);
+      mouse.addAnimation("mouseCollide", mouse3Img);
+      mouse.scale=0.15;
+      mouse.changeAnimation("mouseCollide");
     }
 
     drawSprites();
 }
 
-
 function keyPressed(){
 
-  //For moving and changing animation write code here
-
-  if(keyCode===LEFT_ARROW){
-   // mouse.addAnimation("mouseTeasing");
-    mouse.changeAnimation("mouseTeasing",mouse2Img);
-    mouse.frameDelay = 25;
-
-    
+  if(keyCode === LEFT_ARROW){
+      cat.velocityX = -5; 
+      cat.addAnimation("catRunning", cat2Img);
+      cat.changeAnimation("catRunning");
+      
+      mouse.addAnimation("mouseTeasing", mouse2Img);
+      mouse.frameDelay = 25;
+      mouse.changeAnimation("mouseTeasing");
   }
-  if(keyCode===RIGHT_ARROW){
-    //cat.addAnimation("catHappy");
-    cat.changeAnimation("catRunning",cat2Img);
-    cat.frameDelay = 25;
-
-    cat.velocityX = -5;
-  }
-
 }
